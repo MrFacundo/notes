@@ -21,6 +21,8 @@ code {
 	flex-direction: column;
 	justify-content: space-between;
 	white-space: pre-wrap;
+	position: relative;
+	overflow-wrap: anywhere;
 }
 
 .note-footer {
@@ -42,4 +44,33 @@ code {
 	padding-right: 15px;
 	padding-left: 15px;
 	min-height: 100vh;
+}
+
+.note.new {
+	background-color: #67d7cc;
+}
+
+textarea {
+	border: none;
+	resize: none;
+	background-color: #67d7cc;
+}
+
+textarea:focus {
+	outline: none;
+}
+
+.save {
+	background-color: #e1e1e1;
+	border: none;
+	border-radius: 15px;
+	padding: 5px 10px 5px 10px;
+	position: absolute;
+	bottom: 20px;
+	right: 10px;
+}
+
+.save:hover {
+	background-color: #ededed;
+	cursor: pointer;
 }
