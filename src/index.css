@@ -12,6 +12,20 @@ code {
 		monospace;
 }
 
+.header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.dark-mode {
+	background-color: rgb(41, 14, 14);
+}
+
+.dark-mode h1 {
+	color: white;
+}
+
 .note {
 	background-color: #fef68a;
 	border-radius: 10px;
@@ -60,17 +74,21 @@ textarea:focus {
 	outline: none;
 }
 
-.save {
+.save,
+.mode {
 	background-color: #e1e1e1;
 	border: none;
 	border-radius: 15px;
 	padding: 5px 10px 5px 10px;
+}
+
+.save {
 	position: absolute;
 	bottom: 20px;
 	right: 10px;
 }
-
-.save:hover {
+.save:hover,
+.mode:hover {
 	background-color: #ededed;
 	cursor: pointer;
 }
