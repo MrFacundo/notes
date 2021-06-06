@@ -3,30 +3,13 @@ import { nanoid } from "nanoid";
 import NotesList from "./components/NotesLists";
 import Search from "./components/Search";
 import { Header } from "./components/Header";
+import styled, { ThemeProvider } from "styled-components";
+import { lightTheme, darkTheme, GlobalStyles } from "./themes.js";
+
+const StyledApp = styled.div``;
 
 const App = () => {
-	const [notes, setNotes] = useState([
-		{
-			id: nanoid(),
-			text: "This is a note",
-			date: "15/04/2021",
-		},
-		{
-			id: nanoid(),
-			text: "This is a 2nd note",
-			date: "15/04/2021",
-		},
-		{
-			id: nanoid(),
-			text: "This is a 3rd note",
-			date: "15/04/2021",
-		},
-		{
-			id: nanoid(),
-			text: "This is a 4th note",
-			date: "15/04/2021",
-		},
-	]);
+	const [notes, setNotes] = useState([]);
 
 	const [searchText, setSearchText] = useState("");
 	const addNote = (text) => {
@@ -34,7 +17,7 @@ const App = () => {
 		const newNote = {
 			id: nanoid(),
 			text: text,
-			date: date.toLocaleDateString(),
+			date: date,
 		};
 		const newNotes = [...notes, newNote];
 		setNotes(newNotes);
@@ -45,7 +28,11 @@ const App = () => {
 		setNotes(newNotes);
 	};
 
-	const [darkMode, setDarkMode] = useState(false);
+	const [theme, setTheme] = useState("light");
+
+	const themeToggler = () => {
+		theme === "light" ? setTheme("dark") : setTheme("light");
+	};
 
 	useEffect(() => {
 		const savedNotes = JSON.parse(localStorage.getItem("notes-data"));
@@ -60,19 +47,22 @@ const App = () => {
 	}, [notes]);
 
 	return (
-		<div className={`${darkMode && "dark-mode"}`}>
-			<div className="container">
-				<Header handleToggleDarkMode={setDarkMode} />
-				<Search handleSearchNote={setSearchText} />
-				<NotesList
-					notes={notes.filter((note) =>
-						note.text.toLowerCase().includes(searchText)
-					)}
-					handleAddNote={addNote}
-					handleDeleteNote={deleteNote}
-				/>
-			</div>
-		</div>
+		<ThemeProvider theme={theme === "light" ? lightTheme : darkTheme}>
+			<GlobalStyles />
+			<StyledApp>
+				<div className="container">
+					<Header themeToggler={themeToggler} />
+					<Search handleSearchNote={setSearchText} />
+					<NotesList
+						notes={notes.filter((note) =>
+							note.text.toLowerCase().includes(searchText)
+						)}
+						handleAddNote={addNote}
+						handleDeleteNote={deleteNote}
+					/>
+				</div>
+			</StyledApp>
+		</ThemeProvider>
 	);
 };
 
